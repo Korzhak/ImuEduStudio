@@ -101,6 +101,13 @@ class ThreeAxisPlotWidget(QWidget):
         if self.z_vis:
             self.z_curve.setData(list(self.times), list(self.z_data))
 
+    def clear(self):
+        self.max_points = 300
+        self.times = deque(maxlen=self.max_points)
+        self.x_data = deque(maxlen=self.max_points)
+        self.y_data = deque(maxlen=self.max_points)
+        self.z_data = deque(maxlen=self.max_points)
+
 
 class TwoAxisPlotWidget(QWidget):
     """Базовий клас для відображення графіків по двох осях"""
@@ -266,7 +273,7 @@ class GyroscopeWidget(ThreeAxisPlotWidget):
         super().__init__(
             title="Дані кутової швидкості",
             y_label="Кутова швидкість",
-            units="рад/с",
+            units="",
             parent=parent
         )
 
@@ -278,7 +285,7 @@ class AccelerometerWidget(ThreeAxisPlotWidget):
         super().__init__(
             title="Дані прискорення",
             y_label="Прискорення",
-            units="g",
+            units="",
             parent=parent
         )
 
