@@ -41,15 +41,6 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
-     <widget class="QWidget" name="accel_plot_widget" native="true"/>
-    </item>
-    <item>
-     <widget class="QWidget" name="gyro_plot_widget" native="true"/>
-    </item>
-    <item>
-     <widget class="QWidget" name="euler_plot_widget" native="true"/>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">

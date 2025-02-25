@@ -34,3 +34,4 @@ wheels/
 .py
 .pypirc
 PYPI.md
+test.py
