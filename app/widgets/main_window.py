@@ -23,8 +23,8 @@ class MainWindow(PyQtierMainWindow):
 
     def __init__(self, *args, **kwargs):
         self.control_rotation_stand_widget = None
-        self.angular_rate_widget = None
-        self.acceleration_widget = None
+        self.angular_rate_config_widget = None
+        self.acceleration_config_widget = None
         self.dock_widgets = {}
         super().__init__(*args, **kwargs)
 
@@ -40,8 +40,8 @@ class MainWindow(PyQtierMainWindow):
         # self.view.rb_send_rotation.clicked.connect(self.allow_send_rotation_callback)
 
     def setup_view(self):
-        self.angular_rate_widget = AngularRateConfigWidget()
-        self.acceleration_widget = AccelerationConfigWidget()
+        self.angular_rate_config_widget = AngularRateConfigWidget()
+        self.acceleration_config_widget = AccelerationConfigWidget()
         self.control_rotation_stand_widget = ControlRotationStandWidget()
         self.create_plots()
 
@@ -63,36 +63,55 @@ class MainWindow(PyQtierMainWindow):
 
         self.rotator_speed_widget = RotatorSpeedWidget()
         self.rotator_angle_widget = RotatorAngleWidget()
-        self.gyroscope_widget = GyroscopeWidget()
+        self.angular_rate_plot_widget = GyroscopeWidget()
         self.accelerometer_widget = AccelerometerWidget()
         self.euler_angles_widget = EulerAnglesWidget()
 
-        self.rotator_speed_dock = Dock("Швидкість обертового стенду")
-        self.rotator_angle_dock = Dock("Кут обертового стенду")
-        self.angular_rate_dock = Dock("Кутова швидкість")
-        self.accel_dock = Dock("Прискорення")
-        self.euler_dock = Dock("Кути Ейлера")
-        self.angular_rate_config_dock = Dock("Налаштування кутової швидкості")
-        self.acceleration_config_dock = Dock("Налаштування прискорення")
-        self.control_rotation_stand_dock = Dock("Керування обертовим стендом")
+        self.add_dock_widget(
+            "Прискорення",
+            "accel_dock",
+            self.accelerometer_widget
+        )
+        self.add_dock_widget(
+            "Налаштування прискорення",
+            "acceleration_config_dock",
+            self.acceleration_config_widget
+        )
+        self.add_dock_widget(
+            "Кутова швидкість",
+            "angular_rate_dock",
+            self.angular_rate_plot_widget
+        )
+        self.add_dock_widget(
+            "Налаштування кутової швидкості",
+            "angular_rate_config_dock",
+            self.angular_rate_config_widget
+        )
+        self.add_dock_widget(
+            "Кути Ейлера",
+            "euler_dock",
+            self.euler_angles_widget
+        )
+        self.add_dock_widget(
+            "Кут обертового стенду",
+            "rotator_angle_dock",
+            self.rotator_angle_widget
+        )
+        self.add_dock_widget(
+            "Кутова швидкість обертового стенду",
+            "rotator_speed_dock",
+            self.rotator_speed_widget
+        )
 
-        self.rotator_speed_dock.addWidget(self.rotator_speed_widget)
-        self.rotator_angle_dock.addWidget(self.rotator_angle_widget)
-        self.angular_rate_dock.addWidget(self.gyroscope_widget)
-        self.accel_dock.addWidget(self.accelerometer_widget)
-        self.euler_dock.addWidget(self.euler_angles_widget)
-        self.angular_rate_config_dock.addWidget(self.angular_rate_widget)
-        self.acceleration_config_dock.addWidget(self.acceleration_widget)
-        self.control_rotation_stand_dock.addWidget(self.control_rotation_stand_widget)
+        self.add_dock_widget(
+            "Керування обертовим стендом",
+            "control_rotation_stand_widget",
+            self.control_rotation_stand_widget
+        )
 
-        self.dock_area.addDock(self.rotator_speed_dock)
-        self.dock_area.addDock(self.rotator_angle_dock)
-        self.dock_area.addDock(self.angular_rate_dock)
-        self.dock_area.addDock(self.accel_dock)
-        self.dock_area.addDock(self.euler_dock)
-        self.dock_area.addDock(self.angular_rate_config_dock)
-        self.dock_area.addDock(self.acceleration_config_dock)
-        self.dock_area.addDock(self.control_rotation_stand_dock)
+        # self.dock_area.addDock(self.angular_rate_config_dock)
+        # self.dock_area.addDock(self.acceleration_config_dock)
+        # self.dock_area.addDock(self.control_rotation_stand_dock)
 
     def create_menu(self):
         # Створюємо меню "Вигляд"
@@ -137,7 +156,7 @@ class MainWindow(PyQtierMainWindow):
     def obtain_data(self, data: dict):
         # Gyroscope data
         processed_gyro_data = self.preprocessing_gyro_data(data['gyro'])
-        self.gyroscope_widget.update_data(processed_gyro_data)
+        self.angular_rate_plot_widget.update_data(processed_gyro_data)
 
         self.view.lb_gyro_x_value.setText(str(np.round(processed_gyro_data['x'], 2)))
         self.view.lb_gyro_y_value.setText(str(np.round(processed_gyro_data['y'], 2)))
@@ -160,11 +179,16 @@ class MainWindow(PyQtierMainWindow):
         # self.view.sb_rotator_rotation.setDisabled(False)
         ...
 
+    def add_dock_widget(self, name, short_name, widget, size=(10, 10), closable=False ):
+        self.dock_widgets[short_name] = Dock(name, closable=closable, size=size, autoOrientation=False)
+        self.dock_widgets[short_name].addWidget(widget)
+        self.dock_area.addDock(self.dock_widgets[short_name])
+
     def _save_additional_state(self):
         """Save dock state to Windows registry"""
         # Get the dock area state
         state = self.dock_area.saveState()
-
+        print(state)
         # Convert to JSON string (registry can store strings)
         state_json = json.dumps(state)
 
