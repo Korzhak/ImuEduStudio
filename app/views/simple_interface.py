@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\Projects\Python\ImuEdu\app\views\templates\simple_interface.ui'
+# Form implementation generated from reading ui file 'E:\Projects\Python\ImuEduStudio\app\views\templates\simple_interface.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #

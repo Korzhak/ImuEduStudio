@@ -10,6 +10,7 @@ from app.widgets import MainWindow, SettingsWindow, AboutWindow
 
 class ApplicationManager(PyQtierApplicationManager):
     def __init__(self):
+        self.acceleration_widget = None
         self.usb_manager = None
         self.data_processor = None
         self.about_window = None

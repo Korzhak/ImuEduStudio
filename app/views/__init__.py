@@ -1,4 +1,7 @@
 from .main_window_interface import Ui_MainWindow
 from .simple_interface import Ui_SimpleView
 from .about_window_interface import Ui_AboutView
+from .acceleration_config_interface import Ui_AccelerationConfig
+from .angular_rate_config_interface import Ui_AngularRateConfig
+from .control_rotation_stand_interface import Ui_ControlRotationStand
 
