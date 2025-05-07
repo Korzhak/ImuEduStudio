@@ -95,18 +95,21 @@ class MainWindow(PyQtierMainWindow):
         self.add_dock_widget(
             "Кут обертового стенду",
             "rotator_angle_dock",
-            self.rotator_angle_widget
+            self.rotator_angle_widget,
+            closable=True
         )
         self.add_dock_widget(
             "Кутова швидкість обертового стенду",
             "rotator_speed_dock",
-            self.rotator_speed_widget
+            self.rotator_speed_widget,
+            closable=True
         )
 
         self.add_dock_widget(
             "Керування обертовим стендом",
             "control_rotation_stand_widget",
-            self.control_rotation_stand_widget
+            self.control_rotation_stand_widget,
+            closable=True
         )
 
         # self.dock_area.addDock(self.angular_rate_config_dock)
@@ -188,7 +191,6 @@ class MainWindow(PyQtierMainWindow):
         """Save dock state to Windows registry"""
         # Get the dock area state
         state = self.dock_area.saveState()
-        print(state)
         # Convert to JSON string (registry can store strings)
         state_json = json.dumps(state)
 
