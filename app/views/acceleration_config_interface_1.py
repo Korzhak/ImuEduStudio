@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\Projects\Python\ImuEduStudio\app\views\templates\angular_rate_config_interface.ui'
+# Form implementation generated from reading ui file 'E:\Projects\Python\ImuEduStudio\app\views\templates\acceleration_config_interface_1.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #

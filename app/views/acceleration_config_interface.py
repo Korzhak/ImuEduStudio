@@ -14,8 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AccelerationConfig(object):
     def setupUi(self, AccelerationConfig):
         AccelerationConfig.setObjectName("AccelerationConfig")
-        AccelerationConfig.resize(265, 161)
-        AccelerationConfig.setStyleSheet("color: rgb(255, 255, 255); background-color: rgb(67, 67, 67);")
+        AccelerationConfig.resize(375, 256)
+        AccelerationConfig.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(AccelerationConfig)
         self.verticalLayout.setObjectName("verticalLayout")
         self.groupBox_5 = QtWidgets.QGroupBox(AccelerationConfig)

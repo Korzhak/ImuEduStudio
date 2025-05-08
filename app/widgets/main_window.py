@@ -22,6 +22,12 @@ class MainWindow(PyQtierMainWindow):
     open_about = pyqtSignal()
 
     def __init__(self, *args, **kwargs):
+        self.dock_area = None
+        self.euler_angles_widget = None
+        self.accelerometer_widget = None
+        self.angular_rate_plot_widget = None
+        self.rotator_angle_widget = None
+        self.rotator_speed_widget = None
         self.control_rotation_stand_widget = None
         self.angular_rate_config_widget = None
         self.acceleration_config_widget = None
@@ -43,7 +49,13 @@ class MainWindow(PyQtierMainWindow):
         self.angular_rate_config_widget = AngularRateConfigWidget()
         self.acceleration_config_widget = AccelerationConfigWidget()
         self.control_rotation_stand_widget = ControlRotationStandWidget()
-        self.create_plots()
+        self.rotator_speed_widget = RotatorSpeedWidget()
+        self.rotator_angle_widget = RotatorAngleWidget()
+        self.angular_rate_plot_widget = GyroscopeWidget()
+        self.accelerometer_widget = AccelerometerWidget()
+        self.euler_angles_widget = EulerAnglesWidget()
+
+        self.create_dock_areas()
 
         # self.dock_widgets['gyro_config_dock_widget'] = self.view.gyro_config_dock_widget
         # self.dock_widgets['accel_config_dock_widget'] = self.view.accel_config_dock_widget
@@ -57,15 +69,10 @@ class MainWindow(PyQtierMainWindow):
     def set_counter(self, data):
         print(data)
 
-    def create_plots(self):
+    def create_dock_areas(self):
         self.dock_area = DockArea()
         self.setCentralWidget(self.dock_area)
 
-        self.rotator_speed_widget = RotatorSpeedWidget()
-        self.rotator_angle_widget = RotatorAngleWidget()
-        self.angular_rate_plot_widget = GyroscopeWidget()
-        self.accelerometer_widget = AccelerometerWidget()
-        self.euler_angles_widget = EulerAnglesWidget()
 
         self.add_dock_widget(
             "Прискорення",
@@ -111,10 +118,6 @@ class MainWindow(PyQtierMainWindow):
             self.control_rotation_stand_widget,
             closable=True
         )
-
-        # self.dock_area.addDock(self.angular_rate_config_dock)
-        # self.dock_area.addDock(self.acceleration_config_dock)
-        # self.dock_area.addDock(self.control_rotation_stand_dock)
 
     def create_menu(self):
         # Створюємо меню "Вигляд"

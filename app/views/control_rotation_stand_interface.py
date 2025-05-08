@@ -15,9 +15,9 @@ class Ui_ControlRotationStand(object):
     def setupUi(self, ControlRotationStand):
         ControlRotationStand.setObjectName("ControlRotationStand")
         ControlRotationStand.resize(270, 182)
-        ControlRotationStand.setStyleSheet("color: rgb(255, 255, 255); background-color: rgb(67, 67, 67);")
+        ControlRotationStand.setStyleSheet("")
         self.horizontalLayout = QtWidgets.QHBoxLayout(ControlRotationStand)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(9, 9, 9, 9)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.widget = QtWidgets.QWidget(ControlRotationStand)
         self.widget.setMinimumSize(QtCore.QSize(0, 139))
